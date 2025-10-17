@@ -74,13 +74,15 @@ class CollectionApiService {
     Map<String, dynamic> data,
   ) async {
     final token = await getToken();
+    String encodedData = await jsonEncode(data);
+    print(encodedData);
     final res = await http.post(
       Uri.parse(baseUrl),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token",
       },
-      body: jsonEncode(data),
+      body: jsonEncode(encodedData),
     );
 
     final decoded = jsonDecode(res.body);
